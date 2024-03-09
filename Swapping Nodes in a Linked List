@@ -1,0 +1,36 @@
+class Solution {
+    public ListNode swapNodes(ListNode head, int k) {
+
+// For Count
+
+        ListNode temp=head;
+        int count=0;
+        while(temp!=null)
+        {
+          count++;
+          temp=temp.next;
+        }
+
+// For fast pointer 
+        ListNode fast=head;
+        for(int i=0;i<count-k;i++)
+        {
+          fast=fast.next;
+        }
+
+// For slow pointer
+        ListNode slow=head;
+
+        for(int i=0;i<k-1;i++)
+        {
+            slow=slow.next;
+        }
+          
+          int swap=slow.val;
+          slow.val=fast.val;
+          fast.val=swap;
+
+          return head;
+
+    }
+}
