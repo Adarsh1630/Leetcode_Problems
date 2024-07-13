@@ -1,0 +1,77 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        
+        int n=heights.length;
+        Stack<Integer> stk=new Stack<>();
+        int nsl[]=new int[n];
+        int nsr[]=new int[n];
+
+        //Step:1 Next Smaller Right
+
+        for(int i=n-1;i>=0;i--)
+        {
+            //While 
+
+            while(!stk.isEmpty() && heights[stk.peek()] >= heights[i])
+            {
+                stk.pop();
+            }
+
+            //if-else
+
+            if(stk.isEmpty())
+            {
+                nsr[i]=n;
+            }else{
+                nsr[i]=stk.peek();
+            }
+
+            //push
+
+            stk.push(i);
+        }
+
+        //Step:2 Next Smaller left
+
+        stk=new Stack<>();
+
+        for(int i=0;i<n;i++)
+        {
+            //While 
+
+            while(!stk.isEmpty() && heights[stk.peek()] >= heights[i])
+            {
+                stk.pop();
+            }
+
+            //if-else
+
+            if(stk.isEmpty())
+            {
+                nsl[i]=-1;
+            }else{
+                nsl[i]=stk.peek();
+            }
+
+            //push
+
+            stk.push(i);
+        }
+
+        //Step:3 Calculating Current Area & Max area
+
+        int Maxarea=0;
+        for(int i=0;i<n;i++)
+        {
+            int height=heights[i];
+            int width=nsr[i]-nsl[i]-1;
+
+            int Currarea=height*width;
+
+            Maxarea=Math.max(Currarea,Maxarea);
+        }
+
+        return Maxarea;
+
+    }
+}
