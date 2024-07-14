@@ -1,0 +1,48 @@
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        
+        if(head==null || head.next==null || left==right)
+        {
+            return head;
+        }
+
+        ListNode prev=null;
+        ListNode curr=head;
+        int i=1;
+        while(curr!=null && i!=left)
+        {
+            prev=curr;
+            curr=curr.next;
+            i++;
+        }
+
+        ListNode ptrStart=prev;
+        ListNode start=curr;
+
+        prev=null;
+
+        ListNode next;
+
+        while(curr!=null && i != right+1 )
+        {
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+            i++;
+        }
+
+        start.next=curr;
+
+        if(ptrStart!=null)
+        {
+          ptrStart.next=prev;  
+        }
+        else{
+            return prev; //if left==0 means left is 0th index so, after reversing the whole linkedlist will reverse
+        }
+
+        return head;
+
+    }
+}
